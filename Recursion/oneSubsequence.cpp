@@ -33,4 +33,5 @@ int main() {
   for(int i = 0; i < subseq.size(); i++) {
     cout<<subseq[i]<<" ";
   }
+  delete[] arr;
 }
