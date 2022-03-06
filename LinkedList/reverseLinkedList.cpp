@@ -11,20 +11,13 @@
  */
 class Solution {
 public:
-    ListNode* reverse(ListNode *head) {
-        if(head->next == NULL) {
+    ListNode* reverseList(ListNode* head) {
+        if(head == NULL || head->next == NULL) {
             return head;
         }
-        ListNode* temp = reverse(head->next);
+        ListNode* temp = reverseList(head->next);
         head->next->next = head;
         head->next = NULL;
         return temp;
-    }
-    
-    ListNode* reverseList(ListNode* head) {
-        if(head == NULL) {
-            return head;
-        }
-        return reverse(head);
     }
 };
