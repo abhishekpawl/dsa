@@ -22,7 +22,7 @@ ll solve(int s, int e, vector<int> &valueInHouse) {
         if(i > 1) {
             cur = max(prevNotRobbed + valueInHouse[i], prevRobbed);
         } else {
-            cur = valueInHouse[i];
+            cur = max(valueInHouse[i], prevRobbed);
         }
         prevNotRobbed = prevRobbed;
         prevRobbed = cur;
