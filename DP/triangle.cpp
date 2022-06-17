@@ -14,10 +14,10 @@ int solve(int i, int j, vector<vector<int>> &triangle, vector<vector<int>> &dp) 
 
 int minimumPathSum(vector<vector<int>>& triangle, int n){
     // vector<vector<int>> dp(n, vector<int> (n, -1));
-	  // return solve(0, 0, triangle, dp);
+	// return solve(0, 0, triangle, dp);
     
     // TABULATION:
-    vector<vector<int>> tab(n, vector<int> (n, 0));
+    /*vector<vector<int>> tab(n, vector<int> (n, 0));
     for(int i = n-1; i >= 0; i--) {
         for(int j = 0; j <= i; j++) {
             if(i == n-1) {
@@ -27,5 +27,18 @@ int minimumPathSum(vector<vector<int>>& triangle, int n){
             }
         }
     }
-    return tab[0][0];
+    return tab[0][0];*/
+    
+    // SPACE OPTIMIZATION ON TABULATION:
+    vector<int> tabso(n);
+    for(int i = n-1; i >= 0; i--) {
+        for(int j = 0; j <= i; j++) {
+            if(i == n-1) {
+                tabso[j] = triangle[i][j];
+            } else {
+                tabso[j] = triangle[i][j] + min(tabso[j], tabso[j+1]);
+            }
+        }
+    }
+    return tabso[0];
 }
