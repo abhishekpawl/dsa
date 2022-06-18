@@ -28,12 +28,18 @@ int knapsack(vector<int> weight, vector<int> value, int n, int maxWeight)
     
     // TABULATION (with space optimization):
     /*vector<vector<int>> tab(n, vector<int> (maxWeight+1, 0));*/
-    vector<int> prev(maxWeight+1, 0), cur(maxWeight+1, 0);
+    /*vector<int> prev(maxWeight+1, 0), cur(maxWeight+1, 0);*/
+    
+    // Further space optimization - 1 array
+    // since for a particular element we only check the left part
+    // so we start filling from right
+    vector<int> prev(maxWeight+1, 0);
+    
     /*for(int i = weight[0]; i <= maxWeight; i++) tab[0][i] = value[0];*/
     for(int i = weight[0]; i <= maxWeight; i++) prev[i] = value[0];
     
     for(int i = 1; i < n; i++) {
-        for(int j = 1; j <= maxWeight; j++) {
+        for(int j = maxWeight; j >= 0; j--) {
             /*int c1 = tab[i-1][j];*/
             int c1 = prev[j];
             int c2 = 0;
@@ -42,9 +48,10 @@ int knapsack(vector<int> weight, vector<int> value, int n, int maxWeight)
                 c2 = value[i] + prev[j-weight[i]];
             }
             /*tab[i][j] = max(c1, c2);*/
-            cur[j] = max(c1, c2);
+            /*cur[j] = max(c1, c2);*/
+            prev[j] = max(c1, c2);
         }
-        prev = cur;
+        /*prev = cur;*/
     }
     
     /*return tab[n-1][maxWeight];*/
